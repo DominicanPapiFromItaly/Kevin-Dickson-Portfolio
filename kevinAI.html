@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8" />
+  <title>Kevin Dickson – Video · Short · Post AI</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <style>
+    :root {
+      --accent: #32ff9c;
+      --accent-mid: #5cffb0;
+      --accent-soft: #a8ffd9;
+      --accent-warm: #0aff6c;
+
+      --text-main: #0a3d2e;
+      --text-dark: #06251b;
+      --text-light: #ffffff;
+
+      --radius-lg: 18px;
+      --radius-md: 12px;
+      --shadow-soft: 0 18px 40px rgba(0, 0, 0, 0.35);
+    }
+
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: linear-gradient(
+        145deg,
+        #b8ffdf 0%,
+        #8affc8 30%,
+        #5cffb0 55%,
+        #0a3d2e 100%
+      );
+      color: var(--text-main);
+      margin: 0;
+      padding: 0;
+    }
+
+    .page {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 32px 18px 60px;
+    }
+
+    header {
+      text-align: center;
+      margin-bottom: 32px;
+    }
+
+    header h1 {
+      font-size: 2rem;
+      color: var(--text-dark);
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+
+    /* VIDEO PRINCIPALE */
+    .main-video {
+      background: rgba(255, 255, 255, 0.25);
+      border-radius: var(--radius-lg);
+      padding: 16px;
+      border: 1px solid rgba(50, 255, 156, 0.4);
+      box-shadow: var(--shadow-soft);
+      margin-bottom: 40px;
+      backdrop-filter: blur(6px);
+    }
+
+    .main-video video {
+      width: 100%;
+      border-radius: var(--radius-md);
+      outline: none;
+    }
+
+    /* SEZIONE COMPETENZE VIDEO */
+    .section-title {
+      font-size: 1.4rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--text-dark);
+      margin-bottom: 18px;
+      text-align: center;
+    }
+
+    .video-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 22px;
+    }
+
+    .video-card {
+      background: rgba(5, 8, 18, 0.85);
+      border-radius: var(--radius-md);
+      padding: 16px;
+      border: 1px solid rgba(92, 255, 176, 0.4);
+      box-shadow: var(--shadow-soft);
+      color: var(--accent-soft);
+    }
+
+    .video-card h3 {
+      margin-bottom: 10px;
+      font-size: 1.1rem;
+      color: var(--accent-soft);
+    }
+
+    .video-card video {
+      width: 100%;
+      border-radius: var(--radius-md);
+      margin-bottom: 10px;
+    }
+
+    .placeholder {
+      width: 100%;
+      height: 180px;
+      border-radius: var(--radius-md);
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px dashed rgba(168, 255, 217, 0.4);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--accent-soft);
+      font-size: 0.9rem;
+      font-style: italic;
+    }
+
+    .back-arrow {
+    position: fixed !important;
+    top: 20px;
+    left: 20px;
+    padding: 10px 18px;
+    background: rgba(5, 8, 18, 0.9);
+    border: 1px solid rgba(92, 255, 176, 0.65);
+    border-radius: 999px;
+    color: var(--accent-soft);
+    font-size: 0.9rem;
+    text-decoration: none;
+    z-index: 999999;
+    backdrop-filter: blur(8px);
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+  }
+
+  .back-arrow:hover {
+    transform: scale(1.05);
+    background: var(--accent);
+    color: var(--text-dark);
+  }
+
+.video-cover {
+  position: relative;
+  width: 100%;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  cursor: pointer;
+  transition: opacity 0.5s ease;
+}
+
+.video-cover img {
+  width: 100%;
+  display: block;
+  border-radius: var(--radius-md);
+}
+
+.video-cover-wrapper {
+  width: 100%;
+  margin-bottom: 40px; /* SPAZIO TRA IMMAGINE E VIDEO */
+  display: flex;
+  justify-content: center;
+}
+
+.video-cover-img {
+  width: 100%;
+  max-width: 100%;
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-soft);
+}
+
+/* WRAPPER */
+.reveal-wrapper {
+  position: relative;
+  overflow: hidden;
+}
+
+/* COPERTURA DIVISA IN DUE PANNELLI */
+.reveal-cover {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  z-index: 10;
+  pointer-events: none;
+}
+
+.reveal-top,
+.reveal-bottom {
+  flex: 1;
+  background: rgba(5, 8, 18, 0.95);
+  transform-origin: center;
+  transition: transform 1s cubic-bezier(0.22, 1, 0.36, 1);
+  box-shadow: 0 0 25px rgba(0,0,0,0.45);
+}
+
+/* LUCE NEON */
+.reveal-glow {
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, transparent, var(--accent), transparent);
+  top: 50%;
+  transform: translateY(-50%);
+  opacity: 0;
+  filter: blur(4px);
+  transition: opacity 0.4s ease;
+}
+
+/* ANIMAZIONE ATTIVA */
+.reveal-wrapper.revealed .reveal-top {
+  transform: translateY(-100%);
+}
+
+.reveal-wrapper.revealed .reveal-bottom {
+  transform: translateY(100%);
+}
+
+.reveal-wrapper.revealed .reveal-glow {
+  opacity: 1;
+  animation: glowMove 1.2s ease forwards;
+}
+
+/* ANIMAZIONE LUCE */
+@keyframes glowMove {
+  0% { transform: translateY(-50%) translateX(-100%); }
+  100% { transform: translateY(-50%) translateX(100%); }
+}
+
+/* ZOOM-IN DEI VIDEO */
+.video-card {
+  opacity: 0;
+  transform: scale(0.92);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.reveal-wrapper.revealed .video-card {
+  opacity: 1;
+  transform: scale(1);
+}
+
+    @media (max-width: 760px) {
+      .video-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* --- MOBILE FIX --- */
+@media (max-width: 760px) {
+
+  /* Titolo: più piccolo e sempre su una riga */
+  header h1 {
+    font-size: 1.35rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    padding: 0 20px;
+  }
+
+  /* Bottone torna indietro: più piccolo e più distante */
+  .back-arrow {
+    top: 14px;
+    left: 14px;
+    padding: 6px 10px;
+    font-size: 0.75rem;
+    gap: 4px;
+    transform: scale(0.9);
+    box-shadow: 0 0 8px rgba(50, 255, 156, 0.35);
+  }
+
+  /* Evita che il bottone tocchi il titolo */
+  header {
+  margin-top: 55px;   /* distanza dall’alto */
+  margin-bottom: 32px; /* distanza dal bottone */
+}
+
+
+  /* Riduzione margini generali */
+  .page {
+    padding: 24px 14px 50px;
+  }
+
+  /* Video principale più armonioso su mobile */
+  .main-video {
+    padding: 12px;
+  }
+
+  /* Video grid: già 1 colonna, ma aggiungo spacing */
+  .video-grid {
+    gap: 18px;
+  }
+
+  /* Titolo sezione più compatto */
+  .section-title {
+    font-size: 1.2rem;
+    margin-top: 10px;
+  }
+}
+
+.youtube-wrapper {
+  position: relative;
+  width: 100%;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  box-shadow: var(--shadow-soft);
+}
+
+.youtube-wrapper iframe {
+  width: 100%;
+  height: 500px;
+  border: none;
+  border-radius: var(--radius-md);
+}
+
+.youtube-responsive {
+  position: relative;
+  width: 100%;
+  padding-bottom: 56.25%; /* 16:9 */
+  height: 0;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  box-shadow: var(--shadow-soft);
+}
+
+.youtube-responsive iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border: none;
+  border-radius: var(--radius-md);
+}
+
+  </style>
+</head>
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  const revealSection = document.querySelector(".reveal-wrapper");
+
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach(entry => {
+        if (entry.intersectionRatio >= 0.9) {
+          revealSection.classList.add("revealed");
+        }
+      });
+    },
+    { threshold: [0, 0.25, 0.5, 0.75, 0.9] }
+  );
+
+  observer.observe(revealSection);
+});
+</script>
+
+<script>
+// Reset animazione quando si rientra nella pagina dalla cronologia
+window.addEventListener("pageshow", (event) => {
+  if (event.persisted) {
+    const revealSection = document.querySelector(".reveal-wrapper");
+    revealSection.classList.remove("revealed");
+  }
+});
+</script>
+
+
+
+<body>
+
+  <div class="page">
+
+    <header>
+        <a href="index.html" class="back-arrow">
+            <span>←</span> Torna indietro
+        </a>
+
+        <h1>Video · Short · Post AI</h1>
+    </header>
+
+   <!-- VIDEO PRINCIPALE CON COVER -->
+  <div class="main-video">
+
+  <!-- COVER IMAGE SEPARATA -->
+  <div class="video-cover-wrapper">
+    <img src="https://i.postimg.cc/s2zMyXX0/Shorts-Kevin.png" alt="Anteprima video" class="video-cover-img" />
+  </div>
+
+  <!-- VIDEO -->
+  <div class="youtube-wrapper">
+  <iframe width="560" height="315" src="https://www.youtube.com/embed/Mc4_Bi5krhg?si=KFSLg5R7daRcdomB" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+
+</div>
+
+</div>
+
+
+    <!-- SEZIONE COMPETENZE VIDEO -->
+    <h2 class="section-title">Le mie competenze video</h2>
+
+    <div class="reveal-wrapper">
+      <div class="reveal-cover">
+        <div class="reveal-top"></div>
+        <div class="reveal-glow"></div>
+        <div class="reveal-bottom"></div>
+    </div>
+
+
+        <div class="video-grid">
+
+        <!-- VIDEO 1 -->
+        <div class="video-card">
+          <h3>Video dimostrativo con ambiente reale</h3>
+          <div class="youtube-wrapper">
+  <div class="youtube-responsive">
+  <iframe 
+    src="https://www.youtube.com/embed/UY4xMiYp0F0?si=cWKzK7F6MFQQpTvw"
+    title="YouTube video player"
+    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+    allowfullscreen>
+  </iframe>
+</div>
+
+</div>
+
+            <p>Editing, short, contenuto dinamico per publicità e fare alzare le views</p>
+        </div>
+
+        <!-- VIDEO 2 -->
+        <div class="video-card">
+          <h3>Video dimostrativo di publicità stile  marketing aziendale</h3>
+          <div class="youtube-responsive">
+  <iframe 
+    src="https://www.youtube.com/embed/BLXWzuNZyYo?si=VOcCJ-jDZm3Sp9Va"
+    title="YouTube video player"
+    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+    allowfullscreen>
+  </iframe>
+</div>
+
+          <p>Presentazioni del tuo brand per lasciare a boca aperta gli spettatori.</p>
+        </div>
+
+      </div>
+    </div>
+</div>
+
+  </div>
+
+  <script>
+document.addEventListener("DOMContentLoaded", () => {
+  const video = document.querySelector("video");
+
+  // parte in autoplay muto
+  video.muted = true;
+  video.play();
+
+  // appena l’utente interagisce → attiva audio
+  const enableAudio = () => {
+    video.muted = false;
+    video.volume = 1;
+    document.removeEventListener("click", enableAudio);
+    document.removeEventListener("scroll", enableAudio);
+  };
+
+  document.addEventListener("click", enableAudio);
+  document.addEventListener("scroll", enableAudio);
+});
+</script>
+
+
+</body>
+</html>

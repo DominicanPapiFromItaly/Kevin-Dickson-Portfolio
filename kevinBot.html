@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8" />
+  <title>Kevin Dickson – Bot AI Personalizzati</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <style>
+    :root {
+      --accent: #32ff9c;
+      --accent-soft: #a8ffd9;
+      --text-main: #0a3d2e;
+      --text-dark: #06251b;
+      --radius-md: 12px;
+      --shadow-soft: 0 18px 40px rgba(0,0,0,0.25);
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: linear-gradient(145deg,#b8ffdf,#8affc8,#5cffb0,#0a3d2e);
+      color: var(--text-main);
+      min-height: 100vh;
+    }
+
+    .page {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 80px 18px 60px;
+      animation: fadeUp 0.9s ease-out forwards;
+      opacity: 0;
+    }
+
+    @keyframes fadeUp {
+      0% { opacity: 0; transform: translateY(25px); }
+      100% { opacity: 1; transform: translateY(0); }
+    }
+
+    .back-arrow {
+      position: fixed !important;
+      top: 20px;
+      left: 20px;
+      padding: 10px 18px;
+      background: rgba(5, 8, 18, 0.9);
+      border: 1px solid rgba(92, 255, 176, 0.65);
+      border-radius: 999px;
+      color: var(--accent-soft);
+      font-size: 0.9rem;
+      text-decoration: none;
+      z-index: 999999;
+      backdrop-filter: blur(8px);
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+    }
+
+    .back-arrow:hover {
+      transform: scale(1.05);
+      background: var(--accent);
+      color: var(--text-dark);
+    }
+
+    header {
+      text-align: center;
+      margin-bottom: 40px;
+    }
+
+    header h1 {
+      font-size: 2rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--text-dark);
+      white-space: nowrap;
+    }
+
+    .subtitle {
+      font-size: 1rem;
+      opacity: 0.9;
+    }
+
+    /* Immagine principale */
+    .top-image {
+      width: 100%;
+      height: 330px;
+      border-radius: 14px;
+      background: rgba(255,255,255,0.08);
+      border: 1px dashed rgba(92,255,176,0.45);
+      margin-bottom: 45px;
+      overflow: hidden;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      animation: zoomIn 1.1s ease-out forwards;
+      opacity: 0;
+    }
+
+    @keyframes zoomIn {
+      0% { opacity: 0; transform: scale(0.92); }
+      100% { opacity: 1; transform: scale(1); }
+    }
+
+    .top-image img {
+      height: 100%;
+      width: auto;
+      object-fit: contain;
+      display: block;
+    }
+
+    /* Card */
+    .card {
+      background: rgba(5,8,18,0.88);
+      border: 1px solid rgba(92,255,176,0.45);
+      border-radius: 14px;
+      padding: 28px;
+      box-shadow: var(--shadow-soft);
+      color: var(--accent-soft);
+      margin-bottom: 40px;
+      animation: neonGlow 3s ease-in-out infinite alternate;
+    }
+
+    @keyframes neonGlow {
+      0% { box-shadow: 0 0 20px rgba(50,255,156,0.25); }
+      100% { box-shadow: 0 0 40px rgba(50,255,156,0.55); }
+    }
+
+    .card h2 {
+      text-align: center;
+      font-size: 1.6rem;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--accent);
+      margin-bottom: 20px;
+    }
+
+    .gallery-title {
+      margin: 10px 0 12px;
+      font-size: 1rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--accent-soft);
+      opacity: 0.9;
+    }
+
+    /* Slider stile Hamming */
+.slider-wrapper {
+  position: relative;
+  width: 100%;
+  margin: 0 auto 26px;
+  overflow: hidden;
+  border-radius: 14px;
+  background: rgba(0,0,0,0.25); /* niente tratteggi */
+  padding: 10px;
+}
+
+.slider-track {
+  display: flex;
+  transition: transform 0.5s ease;
+}
+
+.slide {
+  min-width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.slide img {
+  width: 100%;
+  max-height: 420px;   /* PIÙ GRANDE COME HAMMING */
+  object-fit: contain;
+  display: block;
+  border-radius: 12px;
+  box-shadow: 0 0 20px rgba(50,255,156,0.35);
+}
+
+.slider-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 2.2rem; /* più grande */
+  color: var(--accent-soft);
+  background: rgba(0,0,0,0.55);
+  border-radius: 50%;
+  width: 42px;
+  height: 42px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  user-select: none;
+  transition: background 0.3s, transform 0.2s;
+}
+
+.slider-arrow:hover {
+  background: rgba(0,0,0,0.8);
+  transform: translateY(-50%) scale(1.08);
+}
+
+.arrow-left { left: 12px; }
+.arrow-right { right: 12px; }
+
+.slider-dots {
+  text-align: center;
+  padding: 10px 0 4px;
+}
+
+.slider-dots span {
+  height: 12px;
+  width: 12px;
+  margin: 0 5px;
+  background-color: rgba(255,255,255,0.35);
+  border-radius: 50%;
+  display: inline-block;
+  cursor: pointer;
+  transition: background 0.3s, transform 0.2s;
+}
+
+.slider-dots span.active {
+  background-color: var(--accent);
+  transform: scale(1.15);
+}
+
+
+    .text {
+      font-size: 1rem;
+      line-height: 1.55;
+    }
+
+    @media (max-width: 760px) {
+      .page { padding: 100px 14px 60px; }
+      .back-arrow { top: 24px; left: 18px; padding: 6px 10px; font-size: 0.8rem; }
+      header h1 { font-size: 1.4rem; }
+      .card h2 { font-size: 1.3rem; }
+      .top-image { height: 260px; }
+      .slide img { max-height: 240px; }
+    }
+  </style>
+</head>
+
+<body>
+
+  <a href="index.html" class="back-arrow">← Torna indietro</a>
+
+  <div class="page">
+
+    <header>
+      <h1>Bot AI Personalizzati</h1>
+      <p class="subtitle">Automazione, assistenti embedded e soluzioni su misura</p>
+    </header>
+
+    <!-- IMMAGINE PRINCIPALE -->
+    <div class="top-image">
+      <img src="https://i.postimg.cc/Gh8N3xzw/AIKevin.png" alt="AI Kevin">
+    </div>
+
+    <div class="card">
+      <h2>Automazione & Assistenti Intelligenti</h2>
+
+      <!-- SLIDER ELYSTRA AI -->
+      <h3 class="gallery-title">Coach Bot Personalizzato Elystra AI</h3>
+
+      <div class="slider-wrapper" data-slider="elystra">
+        <div class="slider-track">
+          <div class="slide"><img src="https://i.postimg.cc/WbHpD80B/Elystra-AI1.png" alt="Elystra AI 1"></div>
+          <div class="slide"><img src="https://i.postimg.cc/rFns1ML8/Elystra-AI2.png" alt="Elystra AI 2"></div>
+        </div>
+
+        <div class="slider-arrow arrow-left">❮</div>
+        <div class="slider-arrow arrow-right">❯</div>
+
+        <div class="slider-dots"></div>
+      </div>
+
+      <p class="text">
+        Sviluppo <strong>bot di automazione</strong> pensati per alleggerire il lavoro quotidiano e rendere
+        più fluido il modo in cui comunichi e gestisci le informazioni. Possono:
+        <br><br>
+        • Riassumere messaggi, email e conversazioni lunghe<br>
+        • Rispondere in modo personalizzato, adattandosi allo stile dell’utente o del brand<br>
+        • Creare promemoria intelligenti e ricordarti scadenze o attività importanti<br>
+        • Eseguire task automatici e ripetitivi, anche su più step<br>
+        • Collegarsi a flussi esistenti e integrarsi con altri strumenti<br><br>
+
+        Posso creare <strong>bot embedded</strong> da inserire direttamente nel tuo sito per
+        coinvolgere di più l’utente, guidarlo, rispondere alle domande frequenti e aumentare
+        la probabilità che compili un form, prenoti o ti contatti.
+
+        <br><br>
+
+        Realizzo anche <strong>bot personalizzati per ambiti specifici</strong>, ad esempio:
+        <br>
+        • Studi medici e dentistici<br>
+        • Palestre e centri fitness<br>
+        • Studi legali e consulenti<br>
+        • Agenzie immobiliari<br>
+        • E-commerce e servizi online<br><br>
+
+        Ogni bot è progettato per essere davvero utile, chiaro da usare e integrabile
+        nel flusso reale del tuo lavoro.
+      </p>
+
+    </div>
+
+  </div>
+
+  <script>
+    // Slider generico in stile Hamming/Selection
+    document.addEventListener("DOMContentLoaded", function () {
+      const sliders = document.querySelectorAll(".slider-wrapper");
+
+      sliders.forEach(wrapper => {
+        const track = wrapper.querySelector(".slider-track");
+        const slides = Array.from(wrapper.querySelectorAll(".slide"));
+        const prev = wrapper.querySelector(".arrow-left");
+        const next = wrapper.querySelector(".arrow-right");
+        const dotsContainer = wrapper.querySelector(".slider-dots");
+
+        let currentIndex = 0;
+
+        // Crea i pallini
+        slides.forEach((_, i) => {
+          const dot = document.createElement("span");
+          if (i === 0) dot.classList.add("active");
+          dot.addEventListener("click", () => goToSlide(i));
+          dotsContainer.appendChild(dot);
+        });
+
+        const dots = Array.from(dotsContainer.querySelectorAll("span"));
+
+        function updateSlider() {
+          track.style.transform = `translateX(-${currentIndex * 100}%)`;
+          dots.forEach(d => d.classList.remove("active"));
+          dots[currentIndex].classList.add("active");
+        }
+
+        function goToSlide(index) {
+          currentIndex = index;
+          if (currentIndex < 0) currentIndex = slides.length - 1;
+          if (currentIndex >= slides.length) currentIndex = 0;
+          updateSlider();
+        }
+
+        prev.addEventListener("click", () => {
+          goToSlide(currentIndex - 1);
+        });
+
+        next.addEventListener("click", () => {
+          goToSlide(currentIndex + 1);
+        });
+      });
+    });
+  </script>
+
+</body>
+</html>

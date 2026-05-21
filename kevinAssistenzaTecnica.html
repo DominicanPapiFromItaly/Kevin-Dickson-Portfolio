@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8" />
+  <title>Kevin Dickson – Assistenza Tecnica</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <style>
+    :root {
+      --accent: #32ff9c;
+      --accent-soft: #a8ffd9;
+      --text-main: #0a3d2e;
+      --text-dark: #06251b;
+      --radius-md: 12px;
+      --shadow-soft: 0 18px 40px rgba(0,0,0,0.25);
+    }
+
+    body {
+      font-family: system-ui, sans-serif;
+      background: linear-gradient(145deg,#b8ffdf,#8affc8,#5cffb0,#0a3d2e);
+      margin: 0;
+      padding: 0;
+      color: var(--text-main);
+    }
+
+    .page {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 32px 18px 60px;
+    }
+
+    header {
+      text-align: center;
+      margin-bottom: 40px;
+    }
+
+    header h1 {
+      font-size: 2rem;
+      color: var(--text-dark);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .back-arrow {
+    position: fixed !important;
+    top: 20px;
+    left: 20px;
+    padding: 10px 18px;
+    background: rgba(5, 8, 18, 0.9);
+    border: 1px solid rgba(92, 255, 176, 0.65);
+    border-radius: 999px;
+    color: var(--accent-soft);
+    font-size: 0.9rem;
+    text-decoration: none;
+    z-index: 999999;
+    backdrop-filter: blur(8px);
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+  }
+
+  .back-arrow:hover {
+    transform: scale(1.05);
+    background: var(--accent);
+    color: var(--text-dark);
+  }
+
+ .top-image {
+  width: 100%;
+  height: 330px;
+  border-radius: 14px;
+  background: rgba(255,255,255,0.08);
+  border: 1px dashed rgba(92,255,176,0.45);
+  margin: 35px 0 45px 0;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  animation: zoomIn 1.1s ease-out forwards;
+  opacity: 0;
+}
+
+.top-image img {
+  height: 100%;
+  width: auto;
+  object-fit: contain;
+  display: block;
+}
+
+/* Animazione zoom */
+@keyframes zoomIn {
+  0% { opacity: 0; transform: scale(0.92); }
+  100% { opacity: 1; transform: scale(1); }
+}
+
+    .section-title {
+      text-align: center;
+      font-size: 1.5rem;
+      margin-bottom: 20px;
+      color: var(--text-dark);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+    }
+
+    .service-grid {
+      display: grid;
+      grid-template-columns: repeat(3,1fr);
+      gap: 22px;
+      margin-bottom: 50px;
+    }
+
+    .service-card {
+      background: rgba(5,8,18,0.85);
+      border-radius: var(--radius-md);
+      padding: 16px;
+      border: 1px solid rgba(92,255,176,0.4);
+      color: var(--accent-soft);
+      box-shadow: var(--shadow-soft);
+      opacity: 0;
+      transform: translateY(35px) scale(0.97);
+      transition: all 0.8s ease-out;
+    }
+
+    .service-card.visible {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
+
+    .service-card img {
+      width: 100%;
+      border-radius: var(--radius-md);
+      margin-bottom: 12px;
+    }
+
+    .service-card h3 {
+      margin: 0 0 10px;
+      font-size: 1.1rem;
+      color: var(--accent-soft);
+    }
+
+    .certificate-box {
+      background: rgba(255,255,255,0.25);
+      padding: 20px;
+      border-radius: var(--radius-md);
+      border: 1px solid rgba(50,255,156,0.4);
+      box-shadow: var(--shadow-soft);
+      backdrop-filter: blur(6px);
+      margin-top: 40px;
+      opacity: 0;
+      transform: translateY(40px) scale(0.96);
+      transition: all 1s ease-out;
+    }
+
+    .certificate-box.visible {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+      animation: ufoFloat 4s ease-in-out infinite alternate;
+    }
+
+
+    .certificate-box h2 {
+      text-align: center;
+      color: var(--text-dark);
+      margin-bottom: 12px;
+    }
+
+    .certificate-box p {
+      text-align: center;
+      font-size: 0.95rem;
+      color: var(--text-main);
+    }
+
+    .certificate-box a {
+      display: block;
+      text-align: center;
+      margin-top: 12px;
+      color: var(--accent);
+      font-weight: bold;
+    }
+
+    /* --- ANIMAZIONI SCROLL --- */
+@keyframes ufoFloat {
+  0% {
+    transform: translateY(0) scale(1);
+    box-shadow: 0 0 20px rgba(50,255,156,0.25);
+  }
+  100% {
+    transform: translateY(-6px) scale(1.01);
+    box-shadow: 0 0 35px rgba(50,255,156,0.45);
+  }
+}
+
+
+/* --- MOBILE FIX POTENZIATO --- */
+@media (max-width: 760px) {
+
+      .back-arrow {
+        top: 14px;
+        left: 14px;
+        padding: 6px 10px;
+        font-size: 0.75rem;
+      }
+
+      .service-grid {
+        grid-template-columns: 1fr;
+      }
+  
+  /* Sottotitolo "Interventi che posso fare" più piccolo */
+  .section-title {
+    font-size: 1rem;          /* ridotto */
+    margin-top: 5px;
+    letter-spacing: 0.08em;
+    margin-bottom: 32px !important;  /* prima era 14px */
+  }
+
+  /* Bottone torna indietro più piccolo e più distante */
+  .back-arrow {
+    top: 12px;
+    left: 12px;
+    padding: 5px 9px;
+    font-size: 0.7rem;
+    gap: 3px;
+    transform: scale(0.85);
+    box-shadow: 0 0 6px rgba(50,255,156,0.35);
+  }
+
+  /* Spaziatura generale */
+  .page {
+    padding: 20px 12px 45px;
+  }
+
+  /* Card servizi più compatte */
+  .service-grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .service-card h3 {
+    font-size: 0.95rem;
+  }
+
+  .service-card p {
+    font-size: 0.85rem;
+  }
+
+  /* Certificazione più compatta */
+  .certificate-box h2 {
+    font-size: 1.05rem;
+  }
+
+  .certificate-box p {
+    font-size: 0.85rem;
+  }
+
+.top-image {
+    height: 280px;
+    margin-top: 25px;
+  }
+
+  .top-image img {
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+}
+
+
+  /* Titolo mobile su due righe con "E" */
+  header h1 {
+    font-size: 1.05rem;
+    white-space: normal;
+    line-height: 1.25;
+    margin-top: 70px;
+    margin-bottom: 18px;
+  }
+
+  /* Testo sostitutivo SOLO su mobile */
+  header h1::before {
+    content: "Assistenza Tecnica E\A Hardware & Riparazioni";
+    white-space: pre-line;
+    display: block;
+    text-align: center;
+  }
+
+  /* Nasconde il testo originale */
+  header h1 span {
+    display: none;
+  }
+}
+
+
+  </style>
+</head>
+
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add("visible");
+      }
+    });
+  }, { threshold: 0.25 });
+
+  document.querySelectorAll(".service-card, .certificate-box").forEach(el => {
+    observer.observe(el);
+  });
+
+});
+</script>
+
+
+<body>
+
+<div class="page">
+
+  <a href="index.html" class="back-arrow">← Torna indietro</a>
+
+  <header>
+    <h1><span>Assistenza Tecnica · Hardware & Riparazioni</span></h1>
+  </header>
+
+  <!-- TOP IMAGE ASSISTENZA TECNICA -->
+  <div class="top-image">
+      <img src="https://i.postimg.cc/9f2DVMMd/Riparazione-Kevin.png" alt="Riparazione Kevin">
+  </div>
+
+  <h2 class="section-title">Interventi che posso fare</h2>
+
+  <div class="service-grid">
+
+    <div class="service-card">
+      <img src="https://i.postimg.cc/zfNy5BBj/Riparazione1.png" alt="Riparazione PC aperto">
+      <h3>Diagnosi e Riparazione Hardware</h3>
+      <p>Individuo guasti, sostituisco componenti difettosi e ottimizzo il sistema.</p>
+    </div>
+
+    <div class="service-card">
+      <img src="https://i.postimg.cc/rpTDcmm9/Riparazione2.png" alt="Tecnico che lavora su PC">
+      <h3>Pulizia Profonda & Manutenzione</h3>
+      <p>Rimozione polvere, cambio pasta termica, miglioramento temperature.</p>
+    </div>
+
+    <div class="service-card">
+      <img src="https://i.postimg.cc/LsSJRXXD/Riparazione3.png" alt="Scheda madre in riparazione">
+      <h3>Upgrade Componenti</h3>
+      <p>RAM, SSD, GPU, alimentatori e ottimizzazione generale delle prestazioni.</p>
+    </div>
+
+  </div>
+
+  <div class="certificate-box">
+    <h2>Certificazione Cisco – IT Essentials</h2>
+    <p>
+      Ho completato con successo il corso <strong>IT Essentials 7</strong> della Cisco Networking Academy,
+      che certifica competenze reali su hardware, componenti interni e manutenzione professionale.
+    </p>
+    <p><em>Data di emissione: 05 Mar 2026</em></p>
+
+   <div style="text-align:center; margin-top:18px;">
+  <img src="https://i.postimg.cc/SxM9k3Gn/Cisco.png" alt="Certificazione Cisco IT Essentials" 
+       style="width:100%; max-width:480px; border-radius:12px; box-shadow:0 0 20px rgba(0,0,0,0.25);" />
+</div>
+
+  </div>
+
+</div>
+
+</body>
+</html>
