@@ -2,37 +2,37 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 
   <url>
-    <loc>https://kevindickson.netlify.app/</loc>
+    <loc>https://kevindickson.vercel.app/</loc>
     <priority>1.0</priority>
   </url>
 
   <url>
-    <loc>https://kevindickson.netlify.app/kevinAI.html</loc>
+    <loc>https://kevindickson.vercel.app/kevinAI.html</loc>
     <priority>0.9</priority>
   </url>
 
   <url>
-    <loc>https://kevindickson.netlify.app/kevinApp.html</loc>
+    <loc>https://kevindickson.vercel.app/kevinApp.html</loc>
     <priority>0.9</priority>
   </url>
 
   <url>
-    <loc>https://kevindickson.netlify.app/kevinAssistenzaTecnica.html</loc>
+    <loc>https://kevindickson.vercel.app/kevinAssistenzaTecnica.html</loc>
     <priority>0.9</priority>
   </url>
 
   <url>
-    <loc>https://kevindickson.netlify.app/kevinBot.html</loc>
+    <loc>https://kevindickson.vercel.app/kevinBot.html</loc>
     <priority>0.9</priority>
   </url>
 
   <url>
-    <loc>https://kevindickson.netlify.app/kevinProgrammazione.html</loc>
+    <loc>https://kevindickson.vercel.app/kevinProgrammazione.html</loc>
     <priority>0.9</priority>
   </url>
 
   <url>
-    <loc>https://kevindickson.netlify.app/kevinSiti.html</loc>
+    <loc>https://kevindickson.vercel.app/kevinSiti.html</loc>
     <priority>0.9</priority>
   </url>
 
