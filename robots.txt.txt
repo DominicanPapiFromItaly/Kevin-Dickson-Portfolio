@@ -1,4 +1,0 @@
-User-agent: *
-Allow: /
-
-Sitemap: https://kevindickson.netlify.app/sitemap.xml
