@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://kevindickson.vercel.app/sitemap.xml
+Sitemap: https://kevin-dickson-portfolio.vercel.app/sitemap.xml
