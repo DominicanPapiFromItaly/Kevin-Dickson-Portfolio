@@ -260,3 +260,126 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 });
+
+document.addEventListener("DOMContentLoaded", () => {
+  // ==========================================================================
+  // EFFETTO A BALZI SEQUENZIALI (1, poi 2, poi 3) PER I PROGETTI E SERVIZI
+  // ==========================================================================
+  
+  // Seleziona i gruppi di elementi a griglia
+  const projectCards = document.querySelectorAll(".projects-grid .project-link");
+  const serviceCards = document.querySelectorAll(".services-grid .service-item");
+
+  const observerOptions = {
+    threshold: 0.2, // Scatta quando il 20% della sezione è visibile
+    root: null
+  };
+
+  const sequentialObserver = new IntersectionObserver((entries, observer) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const container = entry.target;
+        // Trova gli elementi figli (progetti o servizi)
+        const items = container.querySelectorAll(".project-link, .service-item");
+        
+        items.forEach((item, index) => {
+          // Applica un ritardo progressivo basato sull'indice (0.15s per il 1°, 0.3s per il 2°, 0.45s per il 3°...)
+          setTimeout(() => {
+            item.classList.add("jump-in");
+          }, index * 150); 
+        });
+
+        // Smetti di osservare una volta eseguita l'animazione
+        observer.unobserve(container);
+      }
+    });
+  }, observerOptions);
+
+  // Osserva i contenitori delle griglie
+  const projectsGrid = document.querySelector(".projects-grid");
+  const servicesGrid = document.querySelector(".services-grid");
+
+  if (projectsGrid) sequentialObserver.observe(projectsGrid);
+  if (servicesGrid) sequentialObserver.observe(servicesGrid);
+
+
+  // ==========================================================================
+  // EFFETTO SPOTLIGHT DORATO DINAMICO SULLE CARD
+  // ==========================================================================
+  const glassCards = document.querySelectorAll(".glass-card, .service-item, .booking-form-card");
+  
+  glassCards.forEach(card => {
+    card.addEventListener("mousemove", (e) => {
+      const rect = card.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+
+      card.style.setProperty("--mouse-x", `${x}px`);
+      card.style.setProperty("--mouse-y", `${y}px`);
+    });
+  });
+});
+
+document.addEventListener("DOMContentLoaded", () => {
+  
+  // ==========================================================================
+  // 1. EFFETTO A BALZI SEQUENZIALI (1, poi 2, poi 3) PER PROGETTI E SERVIZI
+  // ==========================================================================
+  const gridContainers = document.querySelectorAll(".projects-grid, .services-grid");
+
+  const sequentialObserver = new IntersectionObserver((entries, observer) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const items = entry.target.querySelectorAll(".project-link, .service-item");
+        
+        items.forEach((item, index) => {
+          setTimeout(() => {
+            item.classList.add("jump-in");
+          }, index * 180); // Ritardo incrementale fluido (0ms, 180ms, 360ms...)
+        });
+
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.15 });
+
+  gridContainers.forEach(container => sequentialObserver.observe(container));
+
+
+  // ==========================================================================
+  // 2. SCROLL REVEAL DINAMICO PER HERO, ABOUT E CONTATTI
+  // ==========================================================================
+  const revealElements = document.querySelectorAll(".hero-intro, .about-grid, .booking-wrapper");
+  
+  const revealObserver = new IntersectionObserver((entries, observer) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add("section-revealed");
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.2 });
+
+  revealElements.forEach(el => {
+    el.classList.add("reveal-hidden");
+    revealObserver.observe(el);
+  });
+
+
+  // ==========================================================================
+  // 3. EFFETTO SPOTLIGHT DORATO INTERATTIVO AL MOUSE SULLE CARD
+  // ==========================================================================
+  const interactiveCards = document.querySelectorAll(".glass-card, .service-item, .booking-form-card");
+  
+  interactiveCards.forEach(card => {
+    card.addEventListener("mousemove", (e) => {
+      const rect = card.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+
+      card.style.setProperty("--mouse-x", `${x}px`);
+      card.style.setProperty("--mouse-y", `${y}px`);
+    });
+  });
+
+});
