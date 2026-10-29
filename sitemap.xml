@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+
+  <!-- Homepage Principale -->
+  <url>
+    <loc>https://kevin-dickson-portfolio.vercel.app/</loc>
+    <lastmod>2026-10-29</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+  </url>
+
+  <!-- Pagina AI -->
+  <url>
+    <loc>https://kevin-dickson-portfolio.vercel.app/kevinAI.html</loc>
+    <lastmod>2026-10-29</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+
+  <!-- Pagina Sviluppo App -->
+  <url>
+    <loc>https://kevin-dickson-portfolio.vercel.app/kevinApp.html</loc>
+    <lastmod>2026-10-29</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+
+  <!-- Pagina Assistenza Tecnica -->
+  <url>
+    <loc>https://kevin-dickson-portfolio.vercel.app/kevinAssistenzaTecnica.html</loc>
+    <lastmod>2026-10-29</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+
+  <!-- Pagina Bot & Automazioni -->
+  <url>
+    <loc>https://kevin-dickson-portfolio.vercel.app/kevinBot.html</loc>
+    <lastmod>2026-10-29</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+
+  <!-- Pagina Programmazione custom -->
+  <url>
+    <loc>https://kevin-dickson-portfolio.vercel.app/kevinProgrammazione.html</loc>
+    <lastmod>2026-10-29</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+
+  <!-- Pagina Creazione Siti Web -->
+  <url>
+    <loc>https://kevin-dickson-portfolio.vercel.app/kevinSiti.html</loc>
+    <lastmod>2026-10-29</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+
+</urlset>
