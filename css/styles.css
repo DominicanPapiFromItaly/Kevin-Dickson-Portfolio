@@ -2049,3 +2049,168 @@ header {
   transform: translate(2px, -2px); /* Sposta leggermente la freccia in alto a destra */
   stroke: #ffffff;
 }
+
+/* ==========================================================================
+   BASI PER LE ANIMAZIONI AL SCROLL
+   ========================================================================== */
+.reveal-hidden {
+  opacity: 0;
+  transform: translateY(50px);
+  transition: opacity 1s cubic-bezier(0.16, 1, 0.3, 1), transform 1s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.section-revealed {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+
+/* ==========================================================================
+   1. HERO SECTION: Luce pulsante di fondo & Fade-in magnetico
+   ========================================================================== */
+@keyframes heroPulseGlow {
+  0% { transform: scale(1) translate(0, 0); opacity: 0.3; }
+  50% { transform: scale(1.1) translate(20px, -20px); opacity: 0.6; }
+  100% { transform: scale(1) translate(0, 0); opacity: 0.3; }
+}
+
+.hero {
+  position: relative;
+  overflow: hidden;
+}
+
+.hero::before {
+  content: "";
+  position: absolute;
+  top: 5%;
+  right: 15%;
+  width: 450px;
+  height: 450px;
+  background: radial-gradient(circle, rgba(196, 150, 88, 0.15) 0%, transparent 70%);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 0;
+  animation: heroPulseGlow 9s ease-in-out infinite alternate;
+}
+
+.hero .signature-img {
+  animation: signatureFloat 6s ease-in-out infinite alternate;
+}
+
+@keyframes signatureFloat {
+  0% { transform: rotate(-5deg) translateY(0); }
+  100% { transform: rotate(-3deg) translateY(-8px); }
+}
+
+
+/* ==========================================================================
+   2. ABOUT SECTION: Riflesso metallico continuo (Shimmer) sulla card
+   ========================================================================== */
+@keyframes luxuryShimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+.about-image-card {
+  position: relative;
+  overflow: hidden;
+}
+
+.about-image-card::after {
+  content: "";
+  position: absolute;
+  top: 0; left: -150%;
+  width: 150%; height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(226, 186, 132, 0.12), transparent);
+  transform: skewX(-25deg);
+  animation: luxuryShimmer 5s infinite cubic-bezier(0.4, 0, 0.2, 1);
+  pointer-events: none;
+  z-index: 4;
+}
+
+
+/* ==========================================================================
+   3. PROJECTS SECTION: Effetto "A Balzi" progressivo (1, 2, 3) + Zoom 3D
+   ========================================================================== */
+.projects-grid .project-link {
+  opacity: 0;
+  transform: translateY(45px) scale(0.92);
+  transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1), transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.projects-grid .project-link.jump-in {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+.project-item {
+  transition: transform 0.5s cubic-bezier(0.25, 1, 0.5, 1), border-color 0.4s ease;
+}
+
+.project-item:hover {
+  transform: translateY(-6px) scale(1.02);
+}
+
+.project-item .project-bg {
+  transition: transform 0.6s ease, opacity 0.4s ease;
+}
+
+.project-item:hover .project-bg {
+  transform: scale(1.08);
+  opacity: 0.9;
+}
+
+
+/* ==========================================================================
+   4. SERVICES SECTION: Entrata sequenziale a balzi + Scatto freccetta
+   ========================================================================== */
+.services-grid .service-item {
+  opacity: 0;
+  transform: translateY(45px) scale(0.92);
+  transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1), transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.services-grid .service-item.jump-in {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+.service-item:hover .service-arrow {
+  transform: translate(2px, -2px) scale(1.1);
+  box-shadow: 0 0 15px rgba(196, 150, 88, 0.4);
+}
+
+
+/* ==========================================================================
+   5. CONTACTS / BOOKING SECTION: Pulsazione magnetica del bottone
+   ========================================================================== */
+@keyframes submitButtonGlow {
+  0% { box-shadow: 0 8px 20px rgba(196, 150, 88, 0.3); }
+  50% { box-shadow: 0 10px 32px rgba(226, 186, 132, 0.6), 0 0 20px rgba(196, 150, 88, 0.4); }
+  100% { box-shadow: 0 8px 20px rgba(196, 150, 88, 0.3); }
+}
+
+.gold-submit-btn {
+  animation: submitButtonGlow 3.5s infinite ease-in-out;
+}
+
+/* Spotlight dorato interattivo al movimento del mouse su tutte le card */
+.glass-card, .service-item, .booking-form-card {
+  position: relative;
+  overflow: hidden;
+}
+
+.glass-card::before, .service-item::before, .booking-form-card::before {
+  content: "";
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: radial-gradient(700px circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(196, 150, 88, 0.09), transparent 40%);
+  pointer-events: none;
+  z-index: 3;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.glass-card:hover::before, .service-item:hover::before, .booking-form-card:hover::before {
+  opacity: 1;
+}
